@@ -1,0 +1,21 @@
+{
+    "name": "cocos-2d-template",
+    "uuid": "cd950e12-6833-4105-af5f-2ce9efdc74cb",
+    "creator": {
+        "version": "3.8.2"
+    },
+    "scripts": {
+        "img-min": "efe i-m",
+        "img-min:cover": "efe i-m -c",
+        "img-min:efeConfig": "efe i-m -e",
+        "ftp:online": "efe f PC_FTP_URL build sea && efe f MB_FTP_URL build sea",
+        "ftp:pre": "efe f PC_PRE_FTP_URL build sea && efe f MB_PRE_FTP_URL build sea",
+        "ftp:pre-mb": "efe f MB_PRE_FTP_URL build sea",
+        "ftp:pre-pc": "efe f PC_PRE_FTP_URL build sea",
+        "copy:public": "efe copy build/public build/public"
+    },
+    "dependencies": {
+        "crypto-js": "^4.2.0",
+        "qs": "^6.12.1"
+    }
+}
