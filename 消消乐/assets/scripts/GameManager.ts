@@ -73,32 +73,16 @@ export class GameManager extends Component {
     }
 
     start() {
-        // this.testGame()
-        // return
-        const { selectTime } = this.gameConfig
-        const { propsInfo, level } = getGameInfo()
-        this.propsController.initPropsList(
-            Object.keys(propsInfo).map((key: PropsTypeEnum) => {
-                return {
-                    type: key,
-                    count: propsInfo[key],
-                }
-            })
-        )
-        this.stepController.set(selectTime[level])
-        const chessBoard =
-            level === LevelTypeEnum.HARD ? this.initEmptyChessBoard() : null
-
-        this.gameController.init(chessBoard, {
-            isOpenStone: level === LevelTypeEnum.NORMAL,
-            stoneNum: this.gameConfig.stoneNum,
-        })
-        this.startGame()
+        this.testGame()
     }
 
     /** 初始化带有空格子的棋盘 */
     initEmptyChessBoard() {
-        const { normalMap } = this.gameConfig
+        const normalMap = [
+            '1,1;2,1;5,5;5,4',
+            '1,5;2,3;4,5;4,4',
+            '2,5;2,4;3,5;3,4',
+        ]
         const chessBoard = Array.from(
             { length: this.gameController.boardHeight },
             () =>
@@ -120,6 +104,8 @@ export class GameManager extends Component {
     /**测试游戏：单独测试游戏使用 */
     testGame() {
         userStatus.skipApi = true
+        const { propsInfo, level } = getGameInfo()
+
         this.propsController.initPropsList([
             {
                 type: PropsTypeEnum.BOOM,
@@ -146,24 +132,18 @@ export class GameManager extends Component {
                 count: 10,
             },
         ])
-
-        this.gameController.init([
-            [3, 1, 4, 1, 2, 0],
-            [1, 2, 1, 2, 1, 2],
-            [1, -2, -2, -2, 0, 2],
-            [0, 0, 3, 3, 1, 1],
-            [0, 3, 5, 3, 3, 5],
-            [4, 4, 3, 5, 1, 1],
-        ])
-
-        this.stepController.set(100)
+        const chessBoard =
+            level === LevelTypeEnum.HARD ? this.initEmptyChessBoard() : null
+        this.gameController.init(chessBoard, {
+            isOpenStone: level === LevelTypeEnum.NORMAL,
+            stoneNum: 6,
+        })
+        this.stepController.set(level === LevelTypeEnum.HARD ? 10 : 30)
 
         this.startGame()
     }
 
     retry() {
-        trackGA('重玩按钮', '点击', '重玩按钮')
-
         director.loadScene('main')
     }
 
